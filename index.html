@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Biało-Czerwoni | Historia Alternatywna PRL</title>
+    <meta name="description" content="Oficjalna strona projektu Biało-Czerwoni. Powieść i uniwersum historii alternatywnej. Cyniczne spojrzenie na PRL w konwencji cyberpunk.">
+    <meta name="keywords" content="historia alternatywna, prl, cyberpunk, powieść, książka, audiobook, fikcja literacka, dystopia">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Autor Projektu Biało-Czerwoni">
+
+    <meta property="og:title" content="Biało-Czerwoni - Historia, której nie było">
+    <meta property="og:description" content="Projekt literacki. Alternatywna rzeczywistość PRL. Wejdź do systemu.">
+    <meta property="og:type" content="book">
+    <meta property="og:url" content="https://bialoczerwoni-powiesc.pl"> <meta property="og:image" content="https://bialoczerwoni-powiesc.pl/share-image.jpg"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Book",
+      "name": "Biało-Czerwoni",
+      "genre": "Alternate History",
+      "author": {
+        "@type": "Person",
+        "name": "Cyniczny Obserwator"
+      },
+      "workExample": {
+        "@type": "Book",
+        "bookFormat": "https://schema.org/Audiobook"
+      },
+      "abstract": "Powieść osadzona w alternatywnej rzeczywistości PRL."
+    }
+    </script>
+
+    <style>
+        :root {
+            --terminal-green: #33ff00;
+            --terminal-dim: #1a8000;
+            --bg-color: #050505;
+            --glitch-color: #ff00ff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--terminal-green);
+            font-family: 'VT323', monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Scanlines - CRT Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .glow { text-shadow: 0 0 5px var(--terminal-dim), 0 0 10px var(--terminal-dim); }
+
+        /* Klasa dla Screen Readerów (SEO - ukryta wizualnie, widoczna dla Google) */
+        .sr-only {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        #terminal-container {
+            max-width: 800px;
+            width: 100%;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Wyśrodkowanie kontenera */
+            gap: 2rem;
+        }
+
+        /* Tekst pisania - Wyśrodkowany */
+        #typing-text {
+            font-size: 1.5rem;
+            min-height: 80px;
+            line-height: 1.4;
+            text-align: center; /* Zmiana na center dla lepszego efektu na mobile */
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px; height: 1.2rem;
+            background-color: var(--terminal-green);
+            animation: blink 1s step-end infinite;
+            vertical-align: bottom;
+        }
+
+        #countdown {
+            font-size: 4rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+            letter-spacing: 5px;
+        }
+
+        .label {
+            font-size: 1rem;
+            color: var(--terminal-dim);
+            display: block;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-bottom: 2rem;
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            position: absolute;
+            bottom: 20px;
+            z-index: 3;
+        }
+
+        a {
+            color: var(--terminal-green);
+            text-decoration: none;
+            border: 1px solid var(--terminal-green);
+            padding: 10px 20px;
+            transition: all 0.3s;
+            background: rgba(0, 20, 0, 0.9);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a:hover {
+            background-color: var(--terminal-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--terminal-green);
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        @media (max-width: 600px) {
+            #typing-text { font-size: 1.1rem; min-height: 100px; }
+            #countdown { font-size: 2rem; letter-spacing: 2px; }
+            footer { flex-direction: column; gap: 15px; bottom: 30px; }
+            a { width: 80%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="sr-only">Powieść Biało-Czerwoni - Historia Alternatywna PRL</h1>
+
+    <main id="terminal-container">
+        <div id="typing-text"><span id="text-content"></span><span class="cursor"></span></div>
+        
+        <div id="countdown" class="glow">
+            <span class="label">Czas do premiery systemu</span>
+            <span id="timer-display">00:00:00:00</span>
+        </div>
+    </main>
+
+    <footer id="footer-links">
+        <a href="https://www.youtube.com/@twoj-nowy-safe-kanal" target="_blank" rel="noopener noreferrer" aria-label="Odwiedź kanał YouTube">YouTube</a>
+        <a href="https://www.facebook.com/twoj-nowy-fanpage" target="_blank" rel="noopener noreferrer" aria-label="Odwiedź profil Facebook">Facebook</a>
+        <a href="https://www.instagram.com/twoj-nowy-insta" target="_blank" rel="noopener noreferrer" aria-label="Odwiedź Instagram">Instagram</a>
+        <a href="https://www.tiktok.com/@twoj-nowy-tiktok" target="_blank" rel="noopener noreferrer" aria-label="Odwiedź TikTok">TikTok</a>
+    </footer>
+
+    <script>
+        // === KONFIGURACJA TREŚCI (BEZPIECZNA DLA ALGORYTMÓW) ===
+        // Tutaj wpisz tekst, który ma się pojawiać. Unikaj słowa "propaganda".
+        // Użyj \n dla nowej linii.
+        const contentConfig = {
+            text: "SYSTEM_ROOT: Dostęp przyznany.\nŁadowanie symulacji alternatywnej rzeczywistości...\n\nProjekt: BIAŁO-CZERWONI.\nWkrótce nastąpi nadpisanie historii.",
+            targetDate: "2026-04-01T00:00:00", // ROK-MIESIĄC-DZIEŃ
+            typingSpeed: 40
+        };
+
+        // Elementy DOM
+        const textElement = document.getElementById('text-content');
+        const countdownElement = document.getElementById('countdown');
+        const footerLinks = document.getElementById('footer-links');
+        const timerDisplay = document.getElementById('timer-display');
+
+        // Funkcja pisania (Typewriter)
+        let i = 0;
+        function typeWriter() {
+            if (i < contentConfig.text.length) {
+                let char = contentConfig.text.charAt(i);
+                // Obsługa nowej linii
+                if (char === '\n') {
+                    textElement.innerHTML += '<br>';
+                } else {
+                    textElement.innerHTML += char;
+                }
+                i++;
+                setTimeout(typeWriter, contentConfig.typingSpeed);
+            } else {
+                // Po zakończeniu pisania
+                setTimeout(() => {
+                    countdownElement.style.opacity = 1;
+                    startTimer();
+                }, 600);
+            }
+        }
+
+        // Odliczanie
+        function startTimer() {
+            const dest = new Date(contentConfig.targetDate).getTime();
+            
+            const timerInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = dest - now;
+
+                if (distance < 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.innerHTML = "SYSTEM_LIVE";
+                    return;
+                }
+
+                const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerDisplay.innerHTML = 
+                    `${d}d ${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+
+            }, 1000);
+
+            // Pokaż linki na końcu
+            setTimeout(() => {
+                footerLinks.style.opacity = 1;
+            }, 1500);
+        }
+
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>
