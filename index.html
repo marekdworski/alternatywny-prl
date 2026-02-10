@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>~projekt_bc:bash — Terminal</title>
+    <title>~projekt_bc:bash — Test</title>
     <meta name="description" content="Oficjalna strona projektu B-C. Nie ma wolności bez sprawiedliwości.">
     <meta name="keywords" content="historia alternatywna, prl, cyberpunk, powieść, książka, audiobook, fikcja literacka, dystopia">
     <meta name="robots" content="index, follow">
@@ -66,7 +66,7 @@
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
                         linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             z-index: 2;
             background-size: 100% 2px, 3px 100%;
@@ -179,7 +179,7 @@
 
     <main id="terminal-container">
         <div id="typing-text"><span id="text-content"></span><span class="cursor"></span></div>
-        
+
         <div id="countdown" class="glow">
             <span class="label">Czas do premiery systemu</span>
             <span id="timer-display">00:00:00:00</span>
@@ -234,7 +234,7 @@
         // Odliczanie
         function startTimer() {
             const dest = new Date(contentConfig.targetDate).getTime();
-            
+
             const timerInterval = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = dest - now;
@@ -250,7 +250,7 @@
                 const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-                timerDisplay.innerHTML = 
+                timerDisplay.innerHTML =
                     `${d}d ${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
 
             }, 1000);
