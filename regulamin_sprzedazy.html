@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~projekt_bc:regulamin_sprzedazy</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* Ten sam styl co wyżej */
+        :root { --green: #33ff00; --dim: #1a8000; --bg: #050505; }
+        * { box-sizing: border-box; }
+        body {
+
+            background-color: var(--bg); color: var(--green);
+            font-family: 'VT323', monospace; padding: 20px;
+            max-width: 800px; margin: 0 auto; line-height: 1.4;
+        }
+        h1, h2 { text-transform: uppercase; border-bottom: 1px solid var(--dim); padding-bottom: 5px; }
+        h1 { text-shadow: 0 0 10px var(--dim); margin-bottom: 30px; }
+        p, li { font-size: 1.1rem; color: #ccc; margin-bottom: 15px; }
+        strong { color: var(--green); }
+        ul { list-style: none; padding-left: 0; }
+        ul li::before { content: "# "; color: var(--dim); }
+        a {text-decoration:none;
+        }
+
+        .system-frame {
+            border: 2px solid var(--dim); padding: 20px;
+            box-shadow: 0 0 20px rgba(26, 128, 0, 0.2);
+            height: 60vh; overflow-y: scroll; /* Scrollbar wewnątrz ramki */
+        }
+
+        /* Stylizacja paska przewijania (Webkit) */
+        .system-frame::-webkit-scrollbar { width: 10px; }
+        .system-frame::-webkit-scrollbar-track { background: #000; }
+        .system-frame::-webkit-scrollbar-thumb { background: var(--dim); border: 1px solid var(--green); }
+
+        .return-btn {
+            display: inline-block; margin-top: 30px; padding: 10px 20px;
+            border: 1px solid var(--green); color: var(--green);
+            text-transform: uppercase; transition: 0.3s; text-decoration: none;
+        }
+        .return-btn:hover { background: var(--green); color: black; }
+
+        body::after {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px; pointer-events: none; z-index: 99;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>/SYSTEM/DOCS/TERMS_OF_SERVICE.DAT</h1>
+
+    <div class="system-frame">
+        <p><strong>UWAGA:</strong> Poniższy protokół określa zasady nabywania produktów cyfrowych i fizycznych w obrębie Projektu B-C.</p>
+
+        <h2>§1. DEFINICJE SYSTEMOWE</h2>
+        <ul>
+            <li><strong>Sprzedawca:</strong> Omnis.</li>
+            <li><strong>Klient (Użytkownik):</strong> Podmiot dokonujący zakupu w sklepie.</li>
+            <li><strong>Produkt:</strong> Treści cyfrowe (e-book, audiobook) lub fizyczne dostępne w ofercie.</li>
+        </ul>
+
+        <h2>§2. WYMAGANIA TECHNICZNE</h2>
+        <p>Do korzystania z produktów cyfrowych wymagane jest:</p>
+        <ul>
+            <li>Urządzenie końcowe z dostępem do Sieci.</li>
+            <li>Aktywne konto poczty elektronicznej.</li>
+            <li>Przeglądarka plików PDF/EPUB lub odtwarzacz plików MP3.</li>
+        </ul>
+
+        <h2>§3. PROTOKÓŁ ZAKUPU</h2>
+        <p>1. Wszystkie ceny podane w Sklepie są cenami brutto (zawierają podatek VAT).</p>
+        <p>2. Umowa zostaje zawarta w momencie otrzymania przez Klienta e-maila z potwierdzeniem przyjęcia zamówienia.</p>
+        <p>3. Dostępne metody płatności: Przelew elektroniczny, BLIK, Karty płatnicze (obsługiwane przez operatora zewnętrznego).</p>
+
+        <h2>§4. DOSTAWA (TRANSFER DANYCH)</h2>
+        <p>Produkty cyfrowe wysyłane są automatycznie na adres e-mail podany w formularzu, niezwłocznie po zaksięgowaniu wpłaty (zazwyczaj do 15 minut).</p>
+
+        <h2>§5. ODSTĄPIENIE OD UMOWY</h2>
+        <p>Zgodnie z prawem, konsument ma 14 dni na odstąpienie od umowy. <br>
+        <strong>Wyjątek:</strong> W przypadku treści cyfrowych (e-booki, audiobooki), prawo do odstąpienia wygasa z momentem pobrania pliku lub wyrażenia zgody na dostarczenie treści przed upływem terminu odstąpienia.</p>
+
+        <h2>§6. REKLAMACJE (DEBUGGING)</h2>
+        <p>Wszelkie błędy w plikach lub problemy z pobieraniem należy zgłaszać na adres: <strong style="color:white">kontakt@twojadomena.pl</strong>. Reklamacje rozpatrywane są w terminie 14 dni.</p>
+    </div>
+
+    <center>
+        <a href="index.html" class="return-btn">&lt; POWRÓT_DO_BAZY</a>
+    </center>
+
+</body>
+</html>

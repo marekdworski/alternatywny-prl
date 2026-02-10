@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~projekt_bc:bash — Newsletter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* Twoje style CSS pozostają bez zmian - skopiuj je tutaj */
+        :root { --terminal-green: #33ff00; --terminal-dim: #1a8000; --bg-color: #050505; --error-red: #ff3333; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg-color); color: var(--terminal-green); font-family: 'VT323', monospace; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; overflow-x: hidden; }
+        body::before { content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none; }
+        a { text-decoration: none; color:inherit; }
+        a:hover { color: red; }
+        #terminal-window { width: 100%; max-width: 600px; z-index: 5; text-align: left; }
+        #boot-log { color: var(--terminal-dim); margin-bottom: 2rem; min-height: 60px; white-space: pre-wrap; }
+        #subscribe-form { opacity: 0; transition: opacity 0.5s ease-in; border: 1px solid var(--terminal-dim); padding: 2rem; background: rgba(0, 10, 0, 0.6); position: relative; }
+        .input-group { margin-bottom: 1.5rem; position: relative; }
+        label { display: block; margin-bottom: 0.5rem; font-size: 1.2rem; text-transform: uppercase; }
+        input[type="email"] { width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--terminal-green); color: var(--terminal-green); font-family: 'VT323', monospace; font-size: 1.5rem; padding: 10px 0; outline: none; }
+        input[type="email"]::placeholder { color: var(--terminal-dim); opacity: 0.5; }
+        input[type="email"]:focus { box-shadow: 0 5px 10px -5px var(--terminal-green); }
+        .checkbox-wrapper { margin-bottom: 2rem; display: flex; align-items: flex-start; cursor: pointer; font-size: 1rem; color: var(--terminal-dim); user-select: none; }
+        .checkbox-wrapper:hover { color: var(--terminal-green); }
+        .checkbox-wrapper input[type="checkbox"] { opacity: 0; position: absolute; cursor: pointer; }
+        .custom-check::before { content: "[ ]"; margin-right: 10px; font-weight: bold; display: inline-block; width: 30px; }
+        .checkbox-wrapper input:checked + .custom-check::before { content: "[X]"; color: var(--terminal-green); text-shadow: 0 0 5px var(--terminal-green); }
+        .checkbox-wrapper input:checked + .custom-check { color: var(--terminal-green); }
+        button { background: transparent; color: var(--terminal-green); font-family: 'VT323', monospace; font-size: 1.4rem; border: 1px solid var(--terminal-green); padding: 10px 30px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; width: 100%; }
+        button:disabled { border-color: var(--terminal-dim); color: var(--terminal-dim); cursor: not-allowed; opacity: 0.5; }
+        button:not(:disabled):hover { background: var(--terminal-green); color: var(--bg-color); box-shadow: 0 0 15px var(--terminal-green); }
+        .back-link { margin-top: 2rem; display: inline-block; color: var(--terminal-dim); text-decoration: none; border: 1px solid var(--terminal-dim); padding: 5px 15px; font-size: 1rem; transition: 0.3s; opacity: 0; }
+        .back-link:hover { color: var(--terminal-green); border-color: var(--terminal-green); }
+        #status-msg { margin-top: 1rem; min-height: 1.5rem; text-align: center; }
+        .blink { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div id="terminal-window">
+        <div id="boot-log"></div>
+
+        <form id="subscribe-form">
+            <div class="input-group">
+                <label for="email">IDENTYFIKATOR (E-mail):</label>
+                <input type="email" id="email" name="email" placeholder="uzytkownik@system.pl" required autocomplete="off">
+            </div>
+
+            <label class="checkbox-wrapper">
+                <input type="checkbox" id="consent" name="consent" required>
+                <span class="custom-check">
+                    AKCEPTUJĘ <a href="polityka_prywatnosci.html">I [POLITYKĘ PRYWATNOŚCI]</a>. WYRAŻAM ZGODĘ NA ŚLEDZENIE IP.
+                </span>
+            </label>
+
+            <button type="submit" id="submit-btn" disabled>[ ZAPISZ_W_BAZIE ]</button>
+
+            <div id="status-msg"></div>
+        </form>
+
+        <center>
+            <a href="index.html" class="back-link" id="back-btn">&lt; POWRÓT_DO_SYSTEMU</a>
+        </center>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+        // --- KONFIGURACJA SUPABASE ---
+        // Podmień poniższe wartości na swoje z Settings -> API w panelu Supabase
+        const SUPABASE_URL = 'https://zwmqfoyqcvesyckityng.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3bXFmb3lxY3Zlc3lja2l0eW5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3NDAzMTgsImV4cCI6MjA4NjMxNjMxOH0.U334yGtvol77tL1LPTkLZNGy_ddvN9kMzHyMbwZYfwM';
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // --- INITIAL BOOT SEQUENCE ---
+        const bootText = "INITIALIZING SECURE CONNECTION...\nLOADING DATA PROTOCOLS... OK.\nDECRYPTING FORM... OK.\nREADY.";
+        const speed = 15;
+        const logElement = document.getElementById('boot-log');
+        const formElement = document.getElementById('subscribe-form');
+        const backBtn = document.getElementById('back-btn');
+        let i = 0;
+
+        function fastBoot() {
+            if (i < bootText.length) {
+                let char = bootText.charAt(i);
+                logElement.innerHTML += (char === '\n') ? '<br>' : char;
+                i++;
+                setTimeout(fastBoot, speed);
+            } else {
+                logElement.innerHTML += '<span class="blink">_</span>';
+                setTimeout(() => {
+                    formElement.style.opacity = 1;
+                    backBtn.style.opacity = 1;
+                }, 200);
+            }
+        }
+        window.onload = fastBoot;
+
+        // --- LOGIKA FORMULARZA ---
+        const checkbox = document.getElementById('consent');
+        const submitBtn = document.getElementById('submit-btn');
+        const msg = document.getElementById('status-msg');
+        const emailInput = document.getElementById('email');
+
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "[ ZAPISZ_W_BAZIE ]";
+            } else {
+                submitBtn.disabled = true;
+            }
+        });
+
+        formElement.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // 1. Zmiana stanu UI
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "NAMIERZANIE LOKALIZACJI...";
+            msg.innerHTML = "";
+
+            try {
+                // 2. Pobieranie danych lokalizacyjnych (zewnętrzne API)
+                // Używamy ipapi.co (darmowe do pewnego limitu) lub ipwho.is
+                const ipResponse = await fetch('https://ipapi.co/json/');
+                if (!ipResponse.ok) throw new Error('Błąd lokalizacji');
+                const ipData = await ipResponse.json();
+
+                submitBtn.innerHTML = "WYSYŁANIE PAKIETU...";
+
+                // 3. Wysyłanie do Supabase (opensource)
+                const { data, error } = await supabase
+                    .from('newsletter_subscribers')
+                    .insert([
+                        {
+                            email: emailInput.value,
+                            ip_address: ipData.ip,
+                            city: ipData.city,
+                            country: ipData.country_name
+                        }
+                    ]);
+
+                if (error) throw error;
+
+                // 4. Sukces
+                submitBtn.innerHTML = "[ ZAPISANO ]";
+                msg.style.color = "var(--terminal-green)";
+                msg.innerHTML = `> DANE ZAAKCEPTOWANE. OCZEKUJ RYCHŁEGO KONTAKTU`;
+                emailInput.value = ""; // czyszczenie pola
+                checkbox.checked = false; // odznaczenie zgody
+
+            } catch (err) {
+                // 5. Obsługa błędów
+                console.error(err);
+                submitBtn.innerHTML = "[ BŁĄD ]";
+                submitBtn.disabled = false; // pozwól spróbować ponownie
+                msg.style.color = "var(--error-red)";
+                msg.innerHTML = `> KRYTYCZNY BŁĄD POŁĄCZENIA: ${err.message || 'SERVER ERROR'}`;
+            }
+        });
+    </script>
+
+</body>
+</html>

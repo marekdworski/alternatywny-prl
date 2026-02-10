@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~projekt_bc:polityka_prywatnosci</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root { --green: #33ff00; --dim: #1a8000; --bg: #050505; }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--bg); color: var(--green);
+            font-family: 'VT323', monospace; padding: 20px;
+            max-width: 800px; margin: 0 auto; line-height: 1.4;
+        }
+        h1, h2 { text-transform: uppercase; border-bottom: 1px solid var(--dim); padding-bottom: 5px; }
+        h1 { text-shadow: 0 0 10px var(--dim); margin-bottom: 30px; }
+        p, li { font-size: 1.1rem; color: #ccc; margin-bottom: 15px; }
+        strong { color: var(--green); }
+        ul { list-style: none; padding-left: 0; }
+        ul li::before { content: "> "; color: var(--dim); }
+        a { color: var(--green); text-decoration: none; border-bottom: 1px dashed var(--dim); }
+
+        .system-frame {
+            border: 2px solid var(--dim); padding: 20px;
+            box-shadow: 0 0 20px rgba(26, 128, 0, 0.2);
+        }
+        .return-btn {
+            display: inline-block; margin-top: 30px; padding: 10px 20px;
+            border: 1px solid var(--green); color: var(--green);
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .return-btn:hover { background: var(--green); color: black; }
+
+        /* Scanlines */
+        body::after {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px; pointer-events: none; z-index: 99;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>/SYSTEM/DOCS/PRIVACY_POLICY.TXT</h1>
+
+    <div class="system-frame">
+        <p>STATUS: DOKUMENT JAWNY<br>DATA_AKTUALIZACJI: 2026-02-10</p>
+
+        <h2>1. ADMINISTRATOR DANYCH (ROOT)</h2>
+        <p>Administratorem Twoich danych osobowych w rozumieniu przepisów o ochronie danych osobowych jest:</p>
+        <p><strong>Omnis</strong><br>
+        Adres kwatery głównej: Podgródkowa 59, 42-470 Dziewki<br>
+        NIP: 569-157-06-12<br>
+        Kontakt: <a href="biuro@omnis.pl">biuro@omnis.pl</a></p>
+
+        <h2>2. CEL PRZETWARZANIA DANYCH (INPUT/OUTPUT)</h2>
+        <p>Twoje dane są przetwarzane w celu:</p>
+        <ul>
+            <li>Świadczenia usług drogą elektroniczną (prowadzenie konta, realizacja zamówień).</li>
+            <li>Wysyłki Newslettera (informacji handlowych) – wyłącznie za Twoją zgodą.</li>
+            <li>Prowadzenia statystyk.</li>
+            <li>Obsługi reklamacji i zapytań systemowych.</li>
+
+        </ul>
+
+        <h2>3. BEZPIECZEŃSTWO SYSTEMU</h2>
+        <p>Wdrożyliśmy szyfrowanie SSL oraz procedury zabezpieczające bazę danych przed nieautoryzowanym dostępem (hackowaniem) ze strony podmiotów trzecich.</p>
+        <p>W celach statystycznych monitorujemy przybliżoną lokalizację użytkowników (kraj/miasto). Jeżeli nie wyrażasz na to zgody, napisz na biuro@omnis.pl</p>
+
+        <h2>4. UPRAWNIENIA UŻYTKOWNIKA</h2>
+        <p>Zgodnie z protokołem RODO, masz prawo do:</p>
+        <ul>
+            <li>Dostępu do swoich danych.</li>
+            <li>Sprostowania danych.</li>
+            <li>Usunięcia danych.</li>
+            <li>Wniesienia sprzeciwu wobec przetwarzania.</li>
+        </ul>
+
+        <h2>5. PLIKI COOKIES (ŚLADY CYFROWE)</h2>
+        <p>Strona wykorzystuje pliki cookies (ciasteczka) w celach analitycznych i funkcjonalnych. Możesz zablokować ich zapisywanie w ustawieniach swojej przeglądarki.</p>
+    </div>
+
+    <center>
+        <a href="index.html" class="return-btn">&lt; POWRÓT_DO_BAZY</a>
+    </center>
+
+</body>
+</html>

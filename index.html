@@ -49,7 +49,7 @@
             background-color: var(--bg-color);
             color: var(--terminal-green);
             font-family: 'VT323', monospace;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -130,19 +130,56 @@
             text-transform: uppercase;
         }
 
-        footer {
-            margin-top: auto;
-            padding-bottom: 2rem;
+        /* Kontener stopki - zapewnia odpowiedni odstęp i układ */
+        #footer-links {
+            margin-top: 2rem;
+            padding: 20px;
             display: flex;
-            gap: 20px;
-            opacity: 0;
-            transition: opacity 1s ease-in;
-            flex-wrap: wrap;
+            gap: 25px;
             justify-content: center;
-            width: 100%;
-            position: absolute;
-            bottom: 20px;
+            align-items: center;
+            opacity: 0; /* Animowane przez Twój skrypt JS */
+            transition: opacity 1s ease-in;
             z-index: 3;
+            width: 100%;
+        }
+
+        /* Styl linków w stopce */
+        #footer-links a {
+            color: var(--terminal-green);
+            text-decoration: none;
+            font-family: 'VT323', monospace;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+
+            /* Styl ramki i tła */
+            border: 1px solid var(--terminal-dim);
+            padding: 8px 25px;
+            background: rgba(0, 20, 0, 0.4);
+
+            /* Płynne przejścia dla efektów */
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Efekt najechania (Hover) */
+        #footer-links a:hover {
+            background: var(--terminal-green);
+            color: var(--bg-color);
+            border-color: var(--terminal-green);
+            box-shadow: 0 0 15px var(--terminal-green);
+            text-shadow: none;
+        }
+
+        /* Dekoracyjne nawiasy przed i po tekście (opcjonalne, bardzo terminalowe) */
+        #footer-links a::before { content: "[ "; color: var(--terminal-dim); transition: 0.2s; }
+        #footer-links a::after { content: " ]"; color: var(--terminal-dim); transition: 0.2s; }
+
+        #footer-links a:hover::before,
+        #footer-links a:hover::after {
+            color: var(--bg-color);
         }
 
         a {
@@ -188,14 +225,16 @@
 
     <footer id="footer-links">
 
-    </footer>
+      <a href=newsletter.html class="newsletter">Newsletter</a>
+
+    </>
 
     <script>
         // === KONFIGURACJA TREŚCI (BEZPIECZNA DLA ALGORYTMÓW) ===
         // Tutaj wpisz tekst, który ma się pojawiać. Unikaj słowa "propaganda".
         // Użyj \n dla nowej linii.
         const contentConfig = {
-            text: "SYSTEM_ROOT: Dostęp przyznany.\nŁadowanie symulacji alternatywnej rzeczywistości...\n\nProjekt: B-C.\nWkrótce nastąpi nadpisanie historii.",
+            text: "SYSTEM_ROOT: Dostęp przyznany.\nŁadowanie symulacji alternatywnej rzeczywistości...\n\nProjekt: B-C.\nChcesz wiedzieć więcej?\nZapisz się na newsletter.",
             targetDate: "2026-04-01T00:00:00", // ROK-MIESIĄC-DZIEŃ
             typingSpeed: 40
         };
