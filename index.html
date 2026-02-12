@@ -216,6 +216,102 @@
             footer { flex-direction: column; gap: 15px; bottom: 30px; }
             a { width: 80%; text-align: center; }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Ukrywamy obrazek na start */
+#terminal-container img {
+    opacity: 0;
+    filter: grayscale(100%) contrast(1.5); /* Startowy styl: czarno-biały, wysoki kontrast */
+    will-change: opacity, transform, clip-path;
+    height: 90vh;
+    width: auto;
+}
+
+/* Klasa, którą doda JS po zakończeniu glitcha */
+#terminal-container img.stable {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    filter: none; /* Lub zostaw grayscale, jeśli taki masz styl */
+    transition: opacity 0.1s;
+    height: 40vh;
+    width: auto;
+}
+
+.texticon {
+  display: flex;
+}
+
+/* Klasa animująca "Crash" */
+.glitch-boot {
+    animation: glitch-sequence 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes glitch-sequence {
+    0% {
+        opacity: 0;
+        transform: scale(1.2) skew(20deg);
+        clip-path: inset(50% 0 50% 0); /* Obraz ściśnięty do linii */
+    }
+    10% {
+        opacity: 1;
+        transform: scale(1) skew(-10deg);
+        clip-path: inset(10% 0 80% 0); /* Pocięty pas */
+        filter: brightness(2) contrast(3); /* Błysk */
+    }
+    15% {
+        opacity: 0; /* Zgaśnięcie */
+    }
+    20% {
+        opacity: 0.8;
+        transform: translateX(-10px);
+        clip-path: inset(0 0 0 0); /* Pełny obraz */
+    }
+    25% {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+    30% {
+        opacity: 1;
+        clip-path: inset(40% 0 40% 0);
+        filter: invert(1); /* Negatyw na ułamek sekundy */
+    }
+    40% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+        filter: hue-rotate(90deg); /* Przekłamanie kolorów */
+    }
+    60% {
+        opacity: 0;
+    }
+    70% {
+        opacity: 1;
+        transform: skew(5deg);
+    }
+    80% {
+        opacity: 0.5;
+        clip-path: inset(0 0 50% 0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) skew(0);
+        clip-path: inset(0 0 0 0);
+        filter: none;
+    }
+}
     </style>
 </head>
 <body>
@@ -223,7 +319,18 @@
     <h1 class="sr-only">Powieść Biało-Czerwoni - Historia Alternatywna PRL</h1>
 
     <main id="terminal-container">
-        <div id="typing-text"><span id="text-content"></span><span class="cursor"></span></div>
+
+
+<div class="texticon">
+
+<img src="icon512.png">
+
+        <div id="typing-text">
+
+
+          <span id="text-content"></span><span class="cursor"></span></div>
+
+        </div>
 
         <div id="countdown" class="glow">
             <span class="label">Czas do premiery systemu</span>
@@ -233,16 +340,15 @@
 
     <footer id="footer-links">
 
-      <a href=newsletter.html class="newsletter">Newsletter</a>
+      <a href=newsletter.html class="newsletter">Raport operacyjny</a>
 
     </>
 
     <script>
         // === KONFIGURACJA TREŚCI (BEZPIECZNA DLA ALGORYTMÓW) ===
-        // Tutaj wpisz tekst, który ma się pojawiać. Unikaj słowa "propaganda".
-        // Użyj \n dla nowej linii.
+
         const contentConfig = {
-            text: "SYSTEM_ROOT: Dostęp przyznany.\nŁadowanie symulacji alternatywnej rzeczywistości...\n\nProjekt: B-C.\nChcesz wiedzieć więcej?\nZapisz się na newsletter.",
+            text: "SYSTEM_ROOT: Dostęp przyznany.\nŁadowanie symulacji alternatywnej rzeczywistości...\n\nProjekt: B-C.\nChcesz wiedzieć więcej?\nOdbierz raport operacyjny.",
             targetDate: "2026-04-01T00:00:00", // ROK-MIESIĄC-DZIEŃ
             typingSpeed: 40
         };
@@ -307,5 +413,35 @@
 
         window.onload = typeWriter;
     </script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const terminalImg = document.querySelector('#terminal-container img');
+
+    if (terminalImg) {
+        // Opcjonalne: Losowe opóźnienie startu (symulacja lagów systemu PRL)
+        const bootDelay = 500; // 0.5 sekundy czekania po załadowaniu strony
+
+        setTimeout(() => {
+            // 1. Dodaj klasę animacji
+            terminalImg.classList.add('glitch-boot');
+
+            // Opcjonalne: Dodaj dźwięk glitcha (jeśli masz plik audio)
+            // const audio = new Audio('glitch-noise.mp3');
+            // audio.play();
+
+            // 2. Po zakończeniu animacji (1.5s w CSS), wyczyść i zostaw obraz stały
+            terminalImg.addEventListener('animationend', () => {
+                terminalImg.classList.remove('glitch-boot');
+                terminalImg.classList.add('stable');
+            }, { once: true }); // Listener wykona się tylko raz
+
+        }, bootDelay);
+    }
+});
+</script>
+
 </body>
 </html>
