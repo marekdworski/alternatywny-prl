@@ -233,7 +233,7 @@
     opacity: 0;
     filter: grayscale(100%) contrast(1.5); /* Startowy styl: czarno-biały, wysoki kontrast */
     will-change: opacity, transform, clip-path;
-    height: 90vh;
+    height: 50rem;
     width: auto;
 }
 
@@ -244,7 +244,7 @@
     clip-path: none;
     filter: none; /* Lub zostaw grayscale, jeśli taki masz styl */
     transition: opacity 0.1s;
-    height: 40vh;
+    height: 15rem;
     width: auto;
 }
 
@@ -333,7 +333,7 @@
         </div>
 
         <div id="countdown" class="glow">
-            <span class="label">Czas do premiery systemu</span>
+            <span class="label">Aktualizacja historii nastąpi za:</span>
             <span id="timer-display">00:00:00:00</span>
         </div>
     </main>
@@ -348,7 +348,7 @@
         // === KONFIGURACJA TREŚCI (BEZPIECZNA DLA ALGORYTMÓW) ===
 
         const contentConfig = {
-            text: "SYSTEM_ROOT: Dostęp przyznany.\nŁadowanie symulacji alternatywnej rzeczywistości...\n\nProjekt: B-C.\nChcesz wiedzieć więcej?\nOdbierz raport operacyjny.",
+            text: "SYSTEM_ROOT: Dostęp przyznany.\nŁadowanie symulacji alternatywnej rzeczywistości...\n\nProjekt: B-C.\n Wkrótce nastąpi nadpisanie historii...\n Chcesz wiedzieć więcej?\nOdbierz raport operacyjny.",
             targetDate: "2026-04-01T00:00:00", // ROK-MIESIĄC-DZIEŃ
             typingSpeed: 40
         };
